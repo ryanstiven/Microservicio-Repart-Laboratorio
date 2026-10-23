@@ -1,0 +1,105 @@
+
+services:
+  usuarios:
+    build: ./usuarios
+    container_name: repart-usuarios
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://repart_user:repart_pass@db-usuarios:5432/usuarios_db
+    depends_on:
+      db-usuarios:
+        condition: service_healthy
+    restart: unless-stopped
+
+  repuestos:
+    build: ./repuestos
+    container_name: repart-repuestos
+    ports:
+      - "8001:8001"
+    environment:
+      DATABASE_URL: postgresql://repart_user:repart_pass@db-repuestos:5432/repuestos_db
+    depends_on:
+      db-repuestos:
+        condition: service_healthy
+    restart: unless-stopped
+
+  ventas:
+    build: ./ventas
+    container_name: repart-ventas
+    ports:
+      - "8002:8002"
+    environment:
+      DATABASE_URL: postgresql://repart_user:repart_pass@db-ventas:5432/ventas_db
+    depends_on:
+      db-ventas:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db-usuarios:
+    image: postgres:16-alpine
+    container_name: repart-db-usuarios
+    environment:
+      POSTGRES_USER: repart_user
+      POSTGRES_PASSWORD: repart_pass
+      POSTGRES_DB: usuarios_db
+    volumes:
+      - usuarios_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U repart_user -d usuarios_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  db-repuestos:
+    image: postgres:16-alpine
+    container_name: repart-db-repuestos
+    environment:
+      POSTGRES_USER: repart_user
+      POSTGRES_PASSWORD: repart_pass
+      POSTGRES_DB: repuestos_db
+    volumes:
+      - repuestos_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U repart_user -d repuestos_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  db-ventas:
+    image: postgres:16-alpine
+    container_name: repart-db-ventas
+    environment:
+      POSTGRES_USER: repart_user
+      POSTGRES_PASSWORD: repart_pass
+      POSTGRES_DB: ventas_db
+    volumes:
+      - ventas_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U repart_user -d ventas_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  gateway:
+    build: ./gateway
+    container_name: repart-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      USUARIOS_URL: http://usuarios:8000
+      REPUESTOS_URL: http://repuestos:8001
+      VENTAS_URL: http://ventas:8002
+    depends_on:
+      - usuarios
+      - repuestos
+      - ventas
+    restart: unless-stopped
+
+volumes:
+  usuarios_data:
+  repuestos_data:
+  ventas_data:
