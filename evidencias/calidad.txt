@@ -1,0 +1,30 @@
+INFORME DE CALIDAD - REPART MICROSERVICIOS
+
+1. PRUEBAS AUTOMATIZADAS - PYTEST
+Comando: python -m pytest -v
+Resultado: 16 pruebas aprobadas.
+Fallos: 0.
+Advertencias: 5.
+
+Archivos de pruebas:
+- tests/test_gateway.py
+- tests/test_usuarios.py
+- tests/test_repuestos.py
+- tests/test_ventas.py
+
+2. ANALISIS DE CODIGO - RUFF
+Comando: ruff check .
+Resultado: All checks passed!
+Errores de estilo detectados: 0.
+
+3. ANALISIS DE SEGURIDAD - BANDIT
+Comando: bandit -r gateway usuarios repuestos ventas
+Resultado: No issues identified.
+Lineas analizadas: 348.
+Problemas de seguridad detectados: 0.
+
+CONCLUSION
+Las 16 pruebas automatizadas finalizaron correctamente.
+Ruff no detecto errores de estilo.
+Bandit no identifico problemas de seguridad en el analisis realizado.
+Las advertencias de Pytest no impidieron la ejecucion satisfactoria.

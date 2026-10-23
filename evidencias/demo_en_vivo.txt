@@ -1,0 +1,22 @@
+DEMOSTRACION EN VIVO - REPART MICROSERVICIOS
+
+1. Estado de los contenedores
+NAME                  IMAGE                                                                     COMMAND                  SERVICE        CREATED             STATUS                       PORTS
+repart-db-repuestos   postgres:16-alpine                                                        "docker-entrypoint.s…"   db-repuestos   About an hour ago   Up About an hour (healthy)   5432/tcp
+repart-db-usuarios    postgres:16-alpine                                                        "docker-entrypoint.s…"   db-usuarios    About an hour ago   Up About an hour (healthy)   5432/tcp
+repart-db-ventas      postgres:16-alpine                                                        "docker-entrypoint.s…"   db-ventas      About an hour ago   Up About an hour (healthy)   5432/tcp
+repart-gateway        repart-microservicios-gateway                                             "uvicorn main:app --…"   gateway        49 minutes ago      Up 49 minutes                0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+repart-repuestos      sha256:d0ac05f6af689ab0bfe87dae42069f2b07248e6fae5136f2a4c61ecf68b6586e   "uvicorn main:app --…"   repuestos      About an hour ago   Up About an hour             0.0.0.0:8001->8001/tcp, [::]:8001->8001/tcp
+repart-usuarios       sha256:9e93fdd9a16124e309d56e117c1abd674765a5db2994ef86e17337482e04f405   "uvicorn main:app --…"   usuarios       About an hour ago   Up About an hour             0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+repart-ventas         sha256:6951342434428d38e42a536b75b94cb6a1040118f479e312b4550977488755b2   "uvicorn main:app --…"   ventas         About an hour ago   Up About an hour             0.0.0.0:8002->8002/tcp, [::]:8002->8002/tcp
+
+2. API Gateway
+{"mensaje":"API Gateway de Repart funcionando","servicios":["usuarios","repuestos","ventas"]}
+3. Microservicio de usuarios
+[{"id":1,"nombre":"Administrador Repart","correo":"admin@repart.com","rol":"admin"}]
+
+4. Microservicio de repuestos
+[{"id":1,"nombre":"Pastillas de freno","marca":"Bajaj","precio":45000.0,"cantidad":20}]
+
+5. Microservicio de ventas
+[{"id":1,"id_usuario":1,"id_repuesto":1,"cantidad":2,"precio_unitario":45000.0,"total":90000.0}]

@@ -1,0 +1,48 @@
+INFORME DE PRUEBA DE CARGA - REPART MICROSERVICIOS
+Herramienta: Locust 2.47.0
+
+RESULTADOS GENERALES
+Solicitudes totales: 1531
+Solicitudes fallidas: 0
+Tasa de fallos: 0%
+Solicitudes por segundo: 12.8
+Tiempo promedio de respuesta: 30.55 ms
+Mediana: 34 ms
+Percentil 95 (P95): 60 ms
+Percentil 99 (P99): 95 ms
+Tamaño promedio de respuesta: 90.08 bytes
+
+RESULTADOS POR ENDPOINT
+
+Gateway - inicio
+Solicitudes: 522
+Fallos: 0
+Tiempo promedio: 7.16 ms
+P95: 16 ms
+P99: 42 ms
+
+Repuestos - listar
+Solicitudes: 355
+Fallos: 0
+Tiempo promedio: 43.11 ms
+P95: 66 ms
+P99: 95 ms
+
+Usuarios - listar
+Solicitudes: 359
+Fallos: 0
+Tiempo promedio: 42.77 ms
+P95: 63 ms
+P99: 120 ms
+
+Ventas - listar
+Solicitudes: 295
+Fallos: 0
+Tiempo promedio: 41.93 ms
+P95: 64 ms
+P99: 90 ms
+
+CONCLUSION
+Durante la prueba se completaron 1531 solicitudes sin fallos.
+El tiempo promedio general fue de 30.55 ms y el percentil 95 fue de 60 ms.
+Los resultados corresponden a la ejecución registrada en Locust.
